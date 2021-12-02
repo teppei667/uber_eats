@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import {
   BrowserRouter as Router,
-  Routes,
+  Switch,
   Route,
 } from "react-router-dom";
 
@@ -14,28 +14,38 @@ import { Orders } from './containers/Orders.jsx';
 function App() {
   return (
     <Router>
-      <Routes>
-        //店舗一覧ページ
+      <Switch>
+        // 店舗一覧ページ
         <Route
           exact
-          path="/restaurants"
-          element={<Restaurants />} />  
-        
+          path="/restaurants">
+          <Restaurants />
+        </Route>
+        // フード一覧ページ
         <Route
           exact
-          path="/orders"
-          element={<Orders />} /> 
+          path="/foods"
+        >
+          <Foods />
+        </Route>
+        // 注文ページ
+        <Route
+          exact
+          path="/orders">
+          <Orders />
+        </Route>
         <Route
           exact
           path="/restaurants/:restaurantsId/foods"
           render={({ match }) =>
             <Foods
-              match={match} />
-            }
+              match={match}
+            />
+          }
         />
-      </Routes>
+      </Switch>
     </Router>
-  )
+  );
 }
 
 export default App;
