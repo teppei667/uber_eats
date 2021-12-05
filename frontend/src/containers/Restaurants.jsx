@@ -25,7 +25,6 @@ const HeaderWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   padding: 8px 32px;
-  background-color: pink;
 `;
 
 const MainLogoImage = styled.img`
@@ -34,7 +33,6 @@ const MainLogoImage = styled.img`
 
 const MainCoverImageWrapper = styled.div`
   text-align: center;
-  background-color: pink;
 `;
 
 const MainCover = styled.img`
