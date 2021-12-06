@@ -24,7 +24,7 @@ import { COLORS } from "../style_constants";
 
 //images
 import MainLogo from '../images/logo.png';
-import FoodImage from '../images/food-image.jpg'
+import FoodImage from '../images/food-image.jpg';
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -49,12 +49,16 @@ const FoodsList = styled.div`
   justify-content: space-around;
   flex-wrap: wrap;
   margin-bottom: 50px;
-
 `;
 
 const ItemWrapper = styled.div`
   margin: 16px;
-`
+`;
+
+const submitOrder = () => {
+  //後ほど仮注文のAPIを実装します
+  console.log('登録ボタンが押された')
+}
 
 export const Foods = ({ match }) => {
 
@@ -129,9 +133,23 @@ export const Foods = ({ match }) => {
           <FoodOrderDialog
             food={state.selectedFood}
             isOpen={state.isOpenOrderDialog}
+            countNumber={state.selectedFoodCount}
+            onClickCountUp={() => setState({
+              ...state,
+              selectedFoodCount: state.selectedFoodCount + 1,
+            })}
+            onClickCountDown={() => setState({
+              ...state,
+              selectedFoodCount: state.selectedFoodCount -1,
+            })}
+            //先ほど作った関数を渡します。
+            onClickOrder={() => submitOrder()}
+            //モーダルを閉じるときは全てのstateを初期化する
             onClose={() => setState({
               ...state,
               isOpenOrderDialog: false,
+              selectedFood: null,
+              selectedFoodCount: 1,
             })}
           />
       }
