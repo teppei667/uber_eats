@@ -7,4 +7,4 @@ export const fetchFoods = (restaurantId) => {
     return res.data
   })
   .catch((e) => console.error(e))
-}
+} 

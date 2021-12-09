@@ -19,9 +19,9 @@ module Api
 
       def create
         if LineFood.active.othere_restaurant(@ordered_food.restaurant.id).exists?
-          render json: {
-            existing_restaurant: LineFood.othere_restaurant(@ordered_food.restaurant.id).first.restaurant.name
-            new_restaurant: Food.find(params[:food_id]).restaurant.name
+          return render json: {
+            existing_restaurant: LineFood.othere_restaurant(@ordered_food.restaurant.id).first.restaurant.name,
+            new_restaurant: Food.find(params[:food_id]).restaurant.name,
           }, status: :not_acceptable
         end
 
@@ -38,8 +38,8 @@ module Api
       end
 
       def replace 
-        LineFood.active.othere_restaurant(@ordered_food.resources.id).each do |line_food|
-          line_food.update_attribute(:activem false)
+        LineFood.active.othere_restaurant(@ordered_food.restaurant.id).each do |line_food|
+          line_food.update_attribute(:active, false)
         end
 
         set_line_food(@ordered_food)
@@ -69,7 +69,7 @@ module Api
           else
             @line_food = ordered_food.build_line_food(
               count: params[:count],
-              restaurant: ordered_food.restaurant
+              restaurant: ordered_food.restaurant,
               active: true
             )
           end
