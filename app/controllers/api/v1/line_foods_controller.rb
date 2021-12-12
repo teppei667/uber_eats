@@ -6,7 +6,7 @@ module Api
       def index
         line_foods = LineFood.active
         if line_foods.exists?
-          reder json: {
+          render json: {
             line_food_ids: line_foods.map { |line_food| line_food.id },
             restaurant: line_foods.first.restaurant,
             count: line_foods.sum { |line_food| line_food[:count] },
@@ -32,7 +32,7 @@ module Api
             line_food: @line_food
           }, status: :created
         else
-          reder json: {}, status: :internal_server_error
+          render json: {}, status: :internal_server_error
         end
 
       end

@@ -1,5 +1,4 @@
 import { REQUEST_STATE } from '../constants'
-import { Restaurants } from '../containers/Restaurants';
 
 export const initialState = {
   fetchState: REQUEST_STATE.INITIAL,

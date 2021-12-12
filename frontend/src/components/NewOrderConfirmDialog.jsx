@@ -30,4 +30,4 @@ export const NewOrderConfirmDialog = ({
       </OrderButton>
     </DialogContent>
   </Dialog>
-)
+);

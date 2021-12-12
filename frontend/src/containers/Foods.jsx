@@ -1,20 +1,20 @@
 import React, { Fragment, useEffect, useReducer, useState } from "react";
 import styled from "styled-components";
-import { useHistory, Link } from "react-router-dom"
+import { useHistory, Link } from "react-router-dom";
 
 //components
 import { LocalMallIcon } from "../components/Icons";
 import { FoodWrapper } from "../components/FoodWrapper";
 import Skeleton from '@material-ui/lab/Skeleton';
-import { FoodOrderDialog } from "../components/FoodOrderDialog";
 import { NewOrderConfirmDialog } from "../components/NewOrderConfirmDialog";
+import { FoodOrderDialog } from "../components/FoodOrderDialog";
 
 //reducers
 import {
   initialState as foodsInitialState,
   foodsActionTypes,
   foodsReducer
-} from '../reducers/foods'
+} from '../reducers/foods';
 
 //apis
 import { fetchFoods } from "../apis/foods";
@@ -60,8 +60,9 @@ const ItemWrapper = styled.div`
 
 
 
-export const Foods = ({ match }) => {
-
+export const Foods = ({ 
+  match 
+}) => {
   const initialState = {
     isOpenOrderDialog: false,
     selectedFood: null,
@@ -70,10 +71,9 @@ export const Foods = ({ match }) => {
     existingRestaurantName: '',
     newRestaurantName: '',
   };
-
   const [state, setState] = useState(initialState);
-  const history = useHistory();
   const [foodsState, dispatch] = useReducer(foodsReducer, foodsInitialState);
+  const history = useHistory();
 
   useEffect(() => {
     dispatch({ type: foodsActionTypes.FETCHING })
@@ -84,9 +84,9 @@ export const Foods = ({ match }) => {
           payload: {
             foods: data.foods
           }
-        })
+        });
       })
-  }, [])
+  }, []);
 
   const submitOrder = () => {
     postLineFoods({
@@ -160,36 +160,36 @@ export const Foods = ({ match }) => {
       </FoodsList>
       {
         state.isOpenOrderDialog &&
-          <FoodOrderDialog
-            food={state.selectedFood}
-            isOpen={state.isOpenOrderDialog}
-            countNumber={state.selectedFoodCount}
-            onClickCountUp={() => setState({
-              ...state,
-              selectedFoodCount: state.selectedFoodCount + 1,
-            })}
-            onClickCountDown={() => setState({
-              ...state,
-              selectedFoodCount: state.selectedFoodCount -1,
-            })}
-            //先ほど作った関数を渡します。
-            onClickOrder={() => submitOrder()}
-            //モーダルを閉じるときは全てのstateを初期化する
-            onClose={() => setState({
-              ...state,
-              isOpenOrderDialog: false,
-              selectedFood: null,
-              selectedFoodCount: 1,
-            })}
-          />
+        <FoodOrderDialog
+          food={state.selectedFood}
+          isOpen={state.isOpenOrderDialog}
+          countNumber={state.selectedFoodCount}
+          onClickCountUp={() => setState({
+            ...state,
+            selectedFoodCount: state.selectedFoodCount + 1,
+          })}
+          onClickCountDown={() => setState({
+            ...state,
+            selectedFoodCount: state.selectedFoodCount - 1,
+          })}
+          //先ほど作った関数を渡します。
+          onClickOrder={() => submitOrder()}
+          //モーダルを閉じるときは全てのstateを初期化する
+          onClose={() => setState({
+            ...state,
+            isOpenOrderDialog: false,
+            selectedFood: null,
+            selectedFoodCount: 1,
+          })}
+        />
       }
       {
         state.isOpenNewOrderDialog &&
         <NewOrderConfirmDialog
           isOpen={state.isOpenNewOrderDialog}
-          onClose={() => setState({ ...state, isOpenNewOrderDialog: false})}
-          existingRestaurantName = {state.existingRestaurantName}
-          newRestaurantName = {state.newRestaurantName}
+          onClose={() => setState({ ...state, isOpenNewOrderDialog: false })}
+          existingRestaurantName={state.existingRestaurantName}
+          newRestaurantName={state.newRestaurantName}
           onClickSubmit={() => replaceOrder()}
         />
       }
