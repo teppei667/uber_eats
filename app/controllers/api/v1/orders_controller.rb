@@ -7,7 +7,7 @@ module Api
           total_price: total_price(possted_line_foods)
         )
         if order.save_with_update_line_foods!(possted_line_foods)
-          render json: {}, status :no_content
+          render json: {}, status: :no_content
         else
           render json: {}, status: :internal_server_error
         end
